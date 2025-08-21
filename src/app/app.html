@@ -3,21 +3,16 @@
   <app-navbar></app-navbar>
 </div>
 
-<!-- Main Content -->
-<div class="flex">
+<!-- Main Layout -->
+<div class="flex min-h-screen">
   <!-- Aside Sidebar -->
-  <div class="w-60">
+  <aside class="w-60 bg-gray-50 dark:bg-gray-800">
     <app-aside-category-list></app-aside-category-list>
-  </div>
-
-  <!-- Main Router Outlet -->
-  <div class="flex-1 px-4">
-    <router-outlet></router-outlet>
-  </div>
+  </aside>
 </div>
 
 <!-- Footer -->
-<app-footer></app-footer>
+
 
 <!-- <ng-icon name="heroUsers" />
 <ng-icon name="heroCommandLine" />
