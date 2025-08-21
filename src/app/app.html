@@ -1,6 +1,24 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<!-- Navbar -->
+<div class="mb-14">
+  <app-navbar></app-navbar>
+</div>
+
+<!-- Main Content -->
+<div class="flex">
+  <!-- Aside Sidebar -->
+  <div class="w-60">
+    <app-aside-category-list></app-aside-category-list>
+  </div>
+
+  <!-- Main Router Outlet -->
+  <div class="flex-1 px-4">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- Footer -->
 <app-footer></app-footer>
+
 <!-- <ng-icon name="heroUsers" />
 <ng-icon name="heroCommandLine" />
 <ng-icon name="featherPlusCircle" size="54" color="Red" />
