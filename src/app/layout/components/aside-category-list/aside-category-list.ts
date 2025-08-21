@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import { Footer } from '../footer/footer';
+import { } from '@angular/router';
 
 @Component({
   selector: 'app-aside-category-list',
-  imports: [ RouterOutlet,Footer],
+  imports: [ ],
   templateUrl: './aside-category-list.html',
   styleUrl: './aside-category-list.css'
 })

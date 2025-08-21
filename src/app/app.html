@@ -1,17 +1,19 @@
 <!-- Navbar -->
-<div class="mb-14">
+<div class="mb-16">
   <app-navbar></app-navbar>
 </div>
 
 <!-- Main Layout -->
-<div class="flex min-h-screen">
-  <!-- Aside Sidebar -->
-  <aside class="w-60 bg-gray-50 dark:bg-gray-800">
-    <app-aside-category-list></app-aside-category-list>
-  </aside>
-</div>
-
-<!-- Footer -->
+ <div class="grid grid-cols-12">
+    <div class="col-span-2">
+        <app-left-category-list></app-left-category-list>
+    </div>
+    <div class="col-span-10">
+        <router-outlet></router-outlet>
+    </div>
+ </div>
+    <!-- Footer -->
+    <app-footer></app-footer>
 
 
 <!-- <ng-icon name="heroUsers" />
