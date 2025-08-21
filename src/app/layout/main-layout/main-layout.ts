@@ -1,13 +1,12 @@
 import { Component,OnDestroy } from '@angular/core';
 import { Footer } from '../components/footer/footer';
 import { RouterOutlet } from '@angular/router';
-import { AsideCategoryList } from '../components/aside-category-list/aside-category-list';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { Navbar } from '../components/navbar/navbar';
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterOutlet,Footer,AsideCategoryList,Navbar],
+  imports: [RouterOutlet,Footer,Navbar],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css'
 })
