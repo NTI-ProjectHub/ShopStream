@@ -1,12 +1,9 @@
 import { Component,OnDestroy } from '@angular/core';
-import { Footer } from '../components/footer/footer';
-import { RouterOutlet } from '@angular/router';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
-import { Navbar } from '../components/navbar/navbar';
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterOutlet,Footer,Navbar],
+  imports: [],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css'
 })
