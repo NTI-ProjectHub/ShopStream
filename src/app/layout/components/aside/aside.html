@@ -1,1 +1,68 @@
-<p>aside works!</p>
+<!-- Overlay -->
+<div 
+  *ngIf="isOpen" 
+  (click)="closeAside()" 
+  class="fixed inset-0 bg-black bg-opacity-50 z-40">
+</div>
+
+<!-- Aside -->
+<aside 
+  class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-50 transform transition-transform duration-300"
+  [class.-translate-x-full]="!isOpen"
+  [class.translate-x-0]="isOpen"
+  (click)="$event.stopPropagation()">
+
+  <!-- الهيدر (الصورة + الاسم) -->
+  <div class="p-4 border-b flex items-center gap-3">
+    <img src="https://i.pravatar.cc/40" alt="User" class="w-10 h-10 rounded-full">
+    <div>
+      <h2 class="font-semibold">Amr Mohamed</h2>
+      <p class="text-sm text-gray-500">Frontend Developer</p>
+    </div>
+  </div>
+
+  <!-- اللينكات -->
+  <nav class="p-4 space-y-2">
+    <a href="#" class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100">
+      <ng-icon name="lucideHouse" class="w-5 h-5"></ng-icon>
+      <span>Home</span>
+    </a>
+
+    <a href="#" class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100">
+      <ng-icon name="lucideApple" class="w-5 h-5"></ng-icon>
+      <span>Fruits</span>
+    </a>
+
+    <a href="#" class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100">
+      <ng-icon name="lucideStore" class="w-5 h-5"></ng-icon>
+      <span>Store</span>
+    </a>
+
+    <a href="#" class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100">
+      <ng-icon name="lucideWine" class="w-5 h-5"></ng-icon>
+      <span>Wine</span>
+    </a>
+
+    <!-- باقي اللينكات -->
+    <a href="#" class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100">
+      <ng-icon name="lucideUsers" class="w-5 h-5"></ng-icon>
+      <span>Users</span>
+    </a>
+
+    <a href="#" class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100">
+      <ng-icon name="lucideWallet" class="w-5 h-5"></ng-icon>
+      <span>Wallet</span>
+    </a>
+
+    <a href="#" class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100">
+      <ng-icon name="lucideLifeBuoy" class="w-5 h-5"></ng-icon>
+      <span>Help</span>
+    </a>
+
+    <!-- لوج اوت -->
+    <a href="#" class="flex items-center gap-3 p-2 rounded-lg text-red-600 hover:bg-red-50">
+      <ng-icon name="lucideLogOut" class="w-5 h-5"></ng-icon>
+      <span>Logout</span>
+    </a>
+  </nav>
+</aside>
