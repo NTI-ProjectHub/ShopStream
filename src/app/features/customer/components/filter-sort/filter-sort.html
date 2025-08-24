@@ -1,1 +1,36 @@
-<p>filter-sort works!</p>
+<div class="flex gap-3 py-3 px-2 bg-white relative" (document:click)="closeDropdown()">
+  @for (filter of filters; track $index) {
+    <div class="relative" (click)="$event.stopPropagation()">
+      <button
+        class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-full hover:bg-gray-200"
+        (click)="dropdowns[filter] ? toggleDropdown(filter) : null"
+      >
+        @if (filter === 'Highest rated') {
+          <ng-icon name="heroStar" class="w-4 h-4 text-yellow-500"></ng-icon>
+        }
+        @if (filter === 'Offers') {
+          <ng-icon name="heroTag" class="w-4 h-4 text-green-500"></ng-icon>
+        }
+
+        {{ filter }}
+
+        @if (dropdowns[filter]) {
+          <ng-icon name="heroChevronDown"
+            class="w-4 h-4 text-gray-500"
+            [class.rotate-180]="openDropdown === filter"></ng-icon>
+        }
+      </button>
+
+      @if (openDropdown === filter) {
+        <div class="absolute top-full mt-2 left-0 w-40 bg-white border rounded-lg shadow-lg z-[9999]">
+          @for (option of dropdowns[filter]; track $index) {
+            <div class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                (click)="closeDropdown()">
+              {{ option }}
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

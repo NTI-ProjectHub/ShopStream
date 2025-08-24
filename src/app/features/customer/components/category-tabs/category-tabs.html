@@ -1,1 +1,42 @@
-<p>category-tabs works!</p>
+<div class="relative bg-white py-3">
+  <!-- Left Arrow -->
+  @if (showLeftArrow) {
+    <button
+      (click)="scrollLeft()"
+      class="absolute left-2 top-1/2 -translate-y-1/2 bg-white shadow-md w-7 h-7 flex items-center justify-center rounded-full z-10 hover:bg-gray-100"
+    >
+      ‹
+    </button>
+  }
+
+  <!-- Scrollable Categories -->
+  <div
+    #scrollContainer
+    class="flex overflow-x-auto space-x-6 px-10 scroll-smooth scrollbar-hide"
+    (scroll)="checkScroll()"
+    (mousedown)="startDrag($event)"
+    (mousemove)="onDrag($event)"
+    (mouseup)="stopDrag()"
+    (mouseleave)="stopDrag()"
+    (touchstart)="startDrag($event)"
+    (touchmove)="onDrag($event)"
+    (touchend)="stopDrag()"
+  >
+    @for (cat of categories; track cat.name) {
+      <div class="flex flex-col items-center cursor-pointer hover:scale-105 transition-transform duration-200 min-w-[70px]">
+        <img [src]="cat.image" [alt]="cat.name" class="w-12 h-12 object-contain" />
+        <span class="mt-2 text-sm font-medium text-gray-700 whitespace-nowrap">{{ cat.name }}</span>
+      </div>
+    }
+  </div>
+
+  <!-- Right Arrow -->
+  @if (showRightArrow) {
+    <button
+      (click)="scrollRight()"
+      class="absolute right-2 top-1/2 -translate-y-1/2 bg-white shadow-md w-7 h-7 flex items-center justify-center rounded-full z-10 hover:bg-gray-100"
+    >
+      ›
+    </button>
+  }
+</div>

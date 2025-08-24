@@ -1,1 +1,50 @@
-<p>promo-cards works!</p>
+  <div class="relative bg-white py-6 overflow-visible">
+    <!-- Left Arrow -->
+    @if (showLeftArrow) {
+      <button
+        (click)="scrollLeft()"
+        class="absolute left-4 top-1/2 -translate-y-1/2 bg-white shadow-md w-9 h-9 flex items-center justify-center rounded-full z-10 hover:bg-gray-100"
+      >
+        ‹
+      </button>
+    }
+
+    <!-- Scrollable Slider -->
+    <div
+      #scrollContainer
+      class="flex overflow-x-auto gap-6 px-12 scroll-smooth scrollbar-hide snap-x snap-mandatory overflow-visible pb-4 ml-10"
+      (scroll)="checkScroll()"
+    >
+      @for (promo of promos; track promo.title) {
+        <div
+          class="min-w-[340px] max-w-[360px] h-[230px] snap-start bg-white rounded-xl shadow-md flex flex-row flex-shrink-0 overflow-hidden"
+        >
+          <!-- Left content (text + button) -->
+          <div class="w-2/3 p-5 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-bold mb-1 leading-tight">{{ promo.title }}</h3>
+              <p class="text-gray-600 text-sm mb-3 leading-snug">{{ promo.desc }}</p>
+            </div>
+            <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full w-fit">
+              Jetzt bestellen
+            </button>
+          </div>
+
+          <!-- Right content (image) -->
+          <div class="w-1/3 h-full">
+            <img [src]="promo.image" alt="{{ promo.title }}" class="h-full w-full object-cover" />
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Right Arrow -->
+    @if (showRightArrow) {
+      <button
+        (click)="scrollRight()"
+        class="absolute right-4 top-1/2 -translate-y-1/2 bg-white shadow-md w-9 h-9 flex items-center justify-center rounded-full z-10 hover:bg-gray-100"
+      >
+        ›
+      </button>
+    }
+  </div>
