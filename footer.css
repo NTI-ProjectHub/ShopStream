@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin : 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    font-family: "Roboto","Arial",sans-serif;
+}
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+.left{
+    width: 50%;
+    height: 200px;
+    padding: 20px;  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.list1 ul,.list2 ul{
+    list-style: none;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 300px;
+}
+.list1 li, .list2 li{
+    padding: 10px;
+   transition: 0.5s;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.list1 li a, .list2 li a{
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.list1 li:hover, .list2 li:hover{
+    background-color: #f0f0f0;
+}
+.left h2{
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.left .images{
+    display: flex;
+    
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.left .images img{
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.app-store,.play-store{
+    width: 150px;
+    height: auto;
+    margin-top: 20px;
+    cursor: pointer;    
+}
+.container2{
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+}
+.social-media{
+    display: flex;
+    gap: 20px;
+    
+}
+
+.social-media i{
+   font-size: 20px;
+}
+.social-media p{
+    font-size: 1rem;
+    font-weight: 400;
+}
+.social-media a{
+    text-decoration: none;
+    color: black;
+    padding: 0 5px;
+}
+.copyright p{
+    font-size: 1rem;
+    padding: 5px;
+}
