@@ -11,7 +11,7 @@ export class MainLayout implements OnDestroy {
 
  showAside = false;
   private sub: Subscription;
-
+//test
   constructor(private router: Router, private route: ActivatedRoute) {
     this.sub = this.router.events
       .pipe(filter(e => e instanceof NavigationEnd))
