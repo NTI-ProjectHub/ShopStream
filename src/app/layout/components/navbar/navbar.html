@@ -1,27 +1,85 @@
-<nav class="flex items-center justify-between p-4 bg-white shadow">
-  <!-- Left Section: Menu Icon and Logo -->
+
+
+
+<!-- <nav class="flex items-center justify-between p-4 bg-white shadow">
+  
   <div class="flex items-center space-x-4">
     <ng-icon name="featherMenu" class="w-6 h-6 text-gray-700 cursor-pointer" />
     <span class="text-xl font-bold text-gray-900">Shop Stream</span>
   </div>
 
-  <!-- Middle Section: Delivery, Pickup, Location, Time -->
   <div class="flex items-center space-x-2">
     <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200">Delivery</button>
     <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200">Pickup</button>
     <div class="relative">
       <select class="appearance-none px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 cursor-pointer">
         <option>{{ location }}</option>
-        <!-- Add more location options as needed -->
       </select>
       <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">⧄</span>
     </div>
     <div class="relative">
       <select class="appearance-none px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 cursor-pointer">
         <option>{{ time }}</option>
-        <!-- Add more time options as needed -->
+        
       </select>
       <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">⧄</span>
+    </div>
+  </div>
+
+  
+  <div class="flex items-center space-x-4">
+    <div class="relative">
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        placeholder="Search Shop stream"
+        class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full w-64 focus:outline-none"
+      />
+      <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">🔍</span>
+    </div>
+    <ng-icon name="lucideShoppingCart" class="w-6 h-6 text-green-600 cursor-pointer" />
+  </div>
+</nav>
+ -->
+
+
+
+<nav class="flex items-center justify-between p-4 bg-white shadow">
+  <!-- Left Section: Menu Icon and Logo -->
+  <div class="flex items-center space-x-4">
+    <ng-icon name="featherMenu" class="w-6 h-6 text-gray-700 cursor-pointer" (click)="appear()" />
+    <span class="text-xl font-bold text-gray-900">Uber Eats</span>
+  </div>
+
+  <!-- Middle Section: Delivery, Pickup, Location, Time -->
+  <div class="flex items-center space-x-2 bg-gray-100 p-2 rounded-full">
+    <button class="px-4 py-1 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200">Delivery</button>
+    <button class="px-4 py-1 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200">Pickup</button>
+
+    <!-- Location Dropdown -->
+    <div class="relative">
+      <select
+        class="appearance-none px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 cursor-pointer pr-8"
+      >
+        <option>{{ location }}</option>
+      </select>
+      <ng-icon
+        name="featherChevronDown"
+        class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none"
+      />
+    </div>
+
+    <!-- Time Dropdown -->
+    <div class="relative">
+      <select
+        class="appearance-none px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 cursor-pointer pr-8"
+      >
+        <option>{{ time }}</option>
+      </select>
+      <ng-icon
+        name="featherChevronDown"
+        class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none"
+      />
     </div>
   </div>
 
@@ -32,9 +90,12 @@
         type="text"
         [(ngModel)]="searchQuery"
         placeholder="Search Shop stream"
-        class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full w-64 focus:outline-none"
+        class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full w-64 focus:outline-none pr-10"
       />
-      <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">🔍</span>
+      <ng-icon
+        name="featherSearch"
+        class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500"
+      />
     </div>
     <ng-icon name="lucideShoppingCart" class="w-6 h-6 text-green-600 cursor-pointer" />
   </div>
