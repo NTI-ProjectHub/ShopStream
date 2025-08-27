@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MenuItem } from "../../components/menu-item/menu-item";
 
 @Component({
   selector: 'app-restaurant-details',
-  imports: [],
+  imports: [MenuItem],
   templateUrl: './restaurant-details.html',
   styleUrl: './restaurant-details.css'
 })
@@ -63,4 +64,19 @@ export class RestaurantDetails {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     this.restaurant = this.restaurants.find(r => r.id === this.id);
   }
+
+    reviews = [
+    {
+      rating: 5,
+      text: 'Très bien 👍',
+      author: 'Max...',
+      date: '16/03/25',
+    },
+    {
+      rating: 5,
+      text: 'rapide',
+      author: 'car...',
+      date: '13/02/25',
+    },
+  ];
 }
