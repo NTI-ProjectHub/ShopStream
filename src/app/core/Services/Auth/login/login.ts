@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class LoginServices {
-   private apiUrl = `${Config.BaseUrl}/api/Auth/Login`;
+   private apiUrl = `${Config.BaseUrl}/api/Auth/login`;
    constructor(private http: HttpClient){}
   login(username: string, password: string,email:string) {
     const body = { username, password,email};

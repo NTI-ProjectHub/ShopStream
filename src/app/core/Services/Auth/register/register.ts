@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class RegisterServices {
-  private apiUrl = `${Config.BaseUrl}/api/Auth/Register`;
+  private apiUrl = `${Config.BaseUrl}/api/Auth/register`;
 
   constructor(private http: HttpClient) {}
 

@@ -53,12 +53,13 @@
   </div>
 
   <!-- Aside (Overlay) -->
+  @if (showAside) {
   <div
     class="fixed inset-0 bg-black/50 z-40 transition-opacity"
-    *ngIf="showAside"
     (click)="appear()"
   ></div>
-
+  }
+  
   <div
     class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-50 transform transition-transform duration-300"
     [class.translate-x-0]="showAside"
