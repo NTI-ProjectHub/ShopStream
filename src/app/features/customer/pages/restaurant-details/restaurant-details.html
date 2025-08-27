@@ -1,56 +1,109 @@
 <div class="w-full">
   @if (restaurant) {
   <!-- Container -->
-    <div class="max-w-7xl mx-auto px-6 mt-6">
-      <div class="relative w-full overflow-hidden rounded-xl">
-        <img [src]="restaurant.img" [alt]="restaurant.name" class="w-full h-60 object-cover" />
+  <div class="max-w-7xl mx-auto px-6 mt-6">
+    <div class="relative w-full overflow-hidden rounded-xl">
+      <img [src]="restaurant.img" [alt]="restaurant.name" class="w-full h-60 object-cover" />
+    </div>
+  </div>
+
+  <!-- Container -->
+  <div class="max-w-7xl mx-auto px-6 mt-4">
+    <!-- Name -->
+    <h1 class="text-4xl font-bold">{{ restaurant.name }}</h1>
+
+    <!-- Rating + Delivery -->
+    <div class="flex flex-wrap items-center text-gray-600 text-sm mt-2">
+      <span class="font-semibold">{{ restaurant.rating }}★</span>
+      <span class="ml-1">({{ restaurant.reviews }})</span>
+      <span class="mx-2">·</span>
+      <span>{{ restaurant.fee }}</span>
+      <span class="mx-2">·</span>
+      <span>{{ restaurant.time }}</span>
+    </div>
+
+    <!-- Address -->
+    <p class="text-gray-500 text-sm mt-1">
+      {{ restaurant.address }}
+    </p>
+
+    <!-- Search bar -->
+    <div class="mt-4">
+      <div class="flex items-center border rounded-full px-3 py-2 bg-gray-100">
+        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+        </svg>
+        <input type="text" placeholder="Search in {{ restaurant.name }}"
+          class="ml-2 flex-1 bg-transparent outline-none text-sm" />
       </div>
     </div>
 
-    <!-- Container -->
-    <div class="max-w-7xl mx-auto px-6 mt-4">
-      <!-- Name -->
-      <h1 class="text-2xl font-bold">{{ restaurant.name }}</h1>
+    <!-- buttons -->
+    <div class="flex flex-wrap gap-3 mt-4">
+      @for (btn of buttons; track btn) {
+        <button
+          class="px-4 py-2 rounded-full border text-sm"
+          [class.bg-black]="btn === 'Delivery'"
+          [class.text-white]="btn === 'Delivery'">
+          {{ btn }}
+        </button>
+      }
+    </div>
+  </div>
 
-      <!-- Rating + Delivery -->
-      <div class="flex flex-wrap items-center text-gray-600 text-sm mt-2">
-        <span class="font-semibold">{{ restaurant.rating }}★</span>
-        <span class="ml-1">({{ restaurant.reviews }})</span>
-        <span class="mx-2">·</span>
-        <span>{{ restaurant.fee }}</span>
-        <span class="mx-2">·</span>
-        <span>{{ restaurant.time }}</span>
-      </div>
+  <!-- ✅ Savings + Reviews تحت الـ restaurant -->
+  <div class="max-w-7xl mx-auto px-6 mt-8 space-y-8">
 
-      <!-- Address -->
-      <p class="text-gray-500 text-sm mt-1">
-        {{ restaurant.address }}
-      </p>
-
-      <!-- Search bar -->
-      <div class="mt-4">
-        <div class="flex items-center border rounded-full px-3 py-2 bg-gray-100">
-          <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
-          </svg>
-          <input type="text" placeholder="Search in {{ restaurant.name }}"
-            class="ml-2 flex-1 bg-transparent outline-none text-sm" />
-        </div>
-      </div>
-
-      <!-- buttons -->
-      <div class="flex flex-wrap gap-3 mt-4">
-        @for (btn of buttons; track btn) {
-          <button
-            class="px-4 py-2 rounded-full border text-sm"
-            [class.bg-black]="btn === 'Delivery'"
-            [class.text-white]="btn === 'Delivery'">
-            {{ btn }}
+    <!-- Savings and more -->
+    <section class="w-130">
+      <h2 class="text-3xl font-bold mb-4">Savings and more</h2>
+      <div class="bg-[#fdf2dc] rounded-xl flex items-center justify-between gap-6 pl-6">
+        <div class="flex flex-col justify-between">
+          <h3 class="text-xl font-semibold">€0 Delivery Fee with Uber <br> One</h3>
+          <button class="mt-2 px-4 py-2 bg-black text-white text-lg rounded-full hover:bg-gray-800 cursor-pointer">
+            Try free for 4 weeks
           </button>
+        </div>
+        <img src="restaurant-details/U1FR_billboard.png" alt="Savings" class="w-40 h-40 object-cover rounded-tr-xl rounded-br-xl" />
+      </div>
+    </section>
+
+    <!-- Rating and reviews -->
+    <section>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-3xl font-bold">Rating and reviews</h2>
+        <button class="flex items-center gap-1 px-4 py-2 bg-gray-100 rounded-full hover:bg-gray-200 cursor-pointer">
+          <span>See more</span>
+          <span class="text-lg">↓</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- التقييم العام -->
+        <div class="border border-gray-200 rounded-xl p-6 flex flex-col items-center justify-center text-center">
+          <div class="text-4xl font-bold">4.0</div>
+          <div class="text-yellow-500 text-lg">★★★★★</div>
+          <p class="text-gray-500 mt-1">3000+ Ratings</p>
+        </div>
+
+        <!-- الريفيوهات -->
+        @for (review of reviews; track review) {
+          <div class="border border-gray-200 rounded-xl p-4">
+            <div class="text-yellow-500">★★★★★</div>
+            <p class="mt-2">"{{ review.text }}"</p>
+            <div class="text-sm text-gray-500 mt-2 flex justify-between">
+              <span>{{ review.author }}</span>
+              <span>{{ review.date }}</span>
+            </div>
+          </div>
         }
       </div>
-    </div>
-  }
+    </section>
+
+  </div>
+}
 </div>
+
+<app-menu-item></app-menu-item>

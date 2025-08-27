@@ -1,26 +1,99 @@
-<div class="w-full px-6">
-  <!-- العنوان -->
-  <h2 class="text-xl font-semibold mb-4">Speedy deliveries</h2>
+<div class="flex">
+  <!-- Sidebar -->
+  <nav class="w-56 sticky top-0 h-screen bg-white shadow p-4 mt-12 rounded-xl">
+    <ul>
+      @for (section of sections; track section.id) {
+        <li
+          (click)="scrollTo(section.id)"
+          class="cursor-pointer px-3 py-2 rounded-md mb-2 transition-colors"
+          [class.bg-gray-200]="activeSection === section.id"
+          [class.font-bold]="activeSection === section.id"
+        >
+          {{ section.name }}
+        </li>
+      }
+    </ul>
+  </nav>
 
-  <!-- Grid -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    @for (item of deliveries; track item.id) {
-      <a
-        [routerLink]="['/details', item.id]"
-        class="block rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white cursor-pointer"
-      >
-        <img [src]="item.img" [alt]="item.name" class="w-full h-36 object-cover" />
-        <div class="p-3">
-          <h3 class="font-medium text-lg">{{ item.name }}</h3>
-          <p class="text-sm text-gray-500">{{ item.fee }}</p>
-          <div class="flex items-center text-sm text-gray-600 mt-1">
-            <span class="font-semibold">{{ item.rating }}★</span>
-            <span class="ml-1">({{ item.reviews }})</span>
-            <span class="mx-2">·</span>
-            <span>{{ item.time }}</span>
-          </div>
+  <!-- Content -->
+  <main class="flex-1 p-6 space-y-12 mt-4">
+    @for (section of sections; track section.id) {
+      <section [id]="section.id" class="scroll-mt-20">
+        <!-- Section Title -->
+        <h2 class="text-2xl font-bold mb-6">{{ section.name }}</h2>
+
+        <!-- Grid: 3 cols (2 cards + 1 empty space) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 cursor-pointer">
+          @for (item of section.items; track item.title; let i = $index) {
+            <div class="flex rounded-xl overflow-hidden shadow hover:shadow-lg transition">
+              <!-- Left (text) -->
+              <div class="flex-1 p-4 flex flex-col justify-between">
+                <div>
+                  <h3 class="font-semibold text-lg">{{ item.title }}</h3>
+                  <p class="text-gray-500 text-sm mt-1">{{ item.desc }}</p>
+                  <p class="font-bold mt-2">{{ item.price }}</p>
+                </div>
+              </div>
+
+              <!-- Right (image + +btn) -->
+              <div class="relative w-40">
+                <img [src]="item.img" alt="" class="w-full h-full object-cover" />
+                <button
+                  (click)="openOrder()"
+                  class="absolute bottom-2 right-2 bg-white shadow rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-100 cursor-pointer font-extrabold text-xl"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <!-- بعد كل 2 Cards حط Div فاضي -->
+            @if ((i + 1) % 2 === 0) {
+              <div class="hidden md:block"></div>
+            }
+
+            <!-- Modal -->
+            @if (showOrder) {
+              <div class="fixed inset-0 flex items-center justify-center bg-black/5 z-50">
+                <!-- Box -->
+                <div class="bg-white w-[500px] max-w-[90%] rounded-2xl shadow-sm p-6 relative modal-enter">
+                  <!-- Header -->
+                  <div class="flex justify-between items-center mb-6">
+                    <!-- X -->
+                    <button
+                      (click)="closeOrder()"
+                      class="text-2xl font-bold text-gray-600 hover:text-black"
+                    >
+                      ×
+                    </button>
+
+                    <!-- Share -->
+                    <button
+                      (click)="shareOrder()"
+                      class="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm font-medium"
+                    >
+                      Share
+                    </button>
+                  </div>
+
+                  <!-- Content -->
+                  <div>
+                    <h2 class="text-xl font-semibold mb-4">Your Order</h2>
+                    <div class="flex justify-between items-center border-b py-2">
+                      <span>Pizza Margherita</span>
+                      <span class="font-bold">€12</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b py-2">
+                      <span>Coca Cola</span>
+                      <span class="font-bold">€3</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          }
         </div>
-      </a>
+      </section>
     }
-  </div>
+  </main>
 </div>
