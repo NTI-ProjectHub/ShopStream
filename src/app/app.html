@@ -1,19 +1,31 @@
+@if(isAuthenticated){
+
 <!-- Navbar -->
 <div class="sticky top-0 z-50 bg-white shadow">
   <app-navbar></app-navbar>
 </div>
-
+}
 <!-- Main Layout -->
- <div class="grid grid-cols-12">
-    <div class="col-span-2 sticky top-20 h-screen">
-        <app-left-category-list></app-left-category-list>
-    </div>
-    <div class="col-span-10">
-        <router-outlet></router-outlet>
-    </div>
- </div>
-    <!-- Footer -->
-    <app-footer></app-footer>
+ @if (isAuthenticated) {
+   <div class="grid grid-cols-12">
+      <div class="col-span-2 sticky top-20 h-screen">
+          <app-left-category-list></app-left-category-list>
+      </div>
+      <div class="col-span-10">
+          <router-outlet></router-outlet>
+      </div>
+   </div>
+      <!-- Footer -->
+ }
+ @else {
+            <router-outlet></router-outlet>  
+ }
+
+ @if (isAuthenticated) {
+
+   <app-footer></app-footer>
+ }
+
 
 
 <!-- <ng-icon name="heroUsers" />

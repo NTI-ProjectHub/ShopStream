@@ -1,3 +1,4 @@
+import { AuthService } from './../../../core/Services/auth.service';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
@@ -19,7 +20,8 @@ export class Login {
     private fb: FormBuilder,
     private loginService: LoginServices,
     private globalInfo: GlobalInfo,
-    private router: Router
+    private router: Router,
+    private authService : AuthService
   ) {
     this.form = this.fb.group({
       username: ['', Validators.required],
@@ -35,7 +37,7 @@ export class Login {
       this.loginService.login(username, password, email).subscribe({
         next: (response: any) => {
           console.log('✅ Login successful:', response);
-
+          this.authService.isAuthenticated = () => true;
           // 👇 نخزن بيانات اليوزر في GlobalInfo
           if (response.userinfo) {
             this.globalInfo.setUserInfo({
