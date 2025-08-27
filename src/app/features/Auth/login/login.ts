@@ -55,6 +55,7 @@ export class Login {
           console.log('🌍 Global User Info:', this.globalInfo.getUserInfo());
 
           // 👇 بعد اللوجين رجعه للهوم أو الداشبورد
+          // iwant here when i login successfuly go to the main-layout.ts to the route
           this.router.navigate(['/']);
         },
         error: (error) => {

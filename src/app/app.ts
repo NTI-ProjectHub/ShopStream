@@ -6,11 +6,12 @@ import { LeftCategoryList } from './layout/components/left-category-list/left-ca
 import { GlobalInfo } from './core/Services/global/global-info';
 import { Login } from "./features/Auth/login/login";
 import { Register } from "./features/Auth/register/register";
+import { MainLayout } from "./layout/main-layout/main-layout";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Navbar, Footer, LeftCategoryList, Login, Register],
+  imports: [RouterOutlet, Navbar, Footer, LeftCategoryList, Login, Register, MainLayout],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,9 +1,12 @@
 import { Component,OnDestroy } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
+import { LeftCategoryList } from "../components/left-category-list/left-category-list";
+import { Navbar } from "../components/navbar/navbar";
+import { Footer } from "../components/footer/footer";
 @Component({
   selector: 'app-main-layout',
-  imports: [],
+  imports: [LeftCategoryList, Navbar, RouterModule, Footer],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css'
 })
