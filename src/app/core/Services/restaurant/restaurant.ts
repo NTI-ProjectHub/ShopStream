@@ -33,7 +33,7 @@ export class restaurantservices {
     );
   }
 
-  getRestaurantById(restaurantId: number): Observable<any> {
+  getRestaurantById(restaurantId: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}${restaurantId}`, { withCredentials: true });
   }
 }

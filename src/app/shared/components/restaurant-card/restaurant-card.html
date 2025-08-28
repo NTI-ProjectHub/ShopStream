@@ -1,14 +1,6 @@
 <div class="w-full px-6">
-  <!-- First Carousel (Static, Works) -->
-  <div>Some tags before</div>
-  <owl-carousel-o [options]="customOptions">
-    @for (slide of ['Slide 1', 'Slide 2', 'Slide 3', 'Slide 4', 'Slide 5', 'Slide 6']; track slide) {
-      <ng-template carouselSlide>{{ slide }}</ng-template>
-    }
-  </owl-carousel-o>
-  <div>Some tags after</div>
 
-  <!-- Second Carousel (Top Rated Restaurants) -->
+  <!-- First Carousel (Top Rated Restaurants) -->
   <h2 class="text-xl font-semibold mb-4">Top Rated Restaurants</h2>
   <owl-carousel-o [options]="customOptions">
     @if (topRestaurants.length) {
@@ -39,6 +31,7 @@
     @for (item of restaurants; track item.id) {
       <a
         [routerLink]="['/details', item.id]"
+
         class="block rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white cursor-pointer"
       >
         <img [src]="item.img" [alt]="item.name" class="w-full h-36 object-cover" />

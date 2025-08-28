@@ -38,7 +38,11 @@ customOptions: OwlOptions = {
     nav: true
   }
   constructor(private restaurantservices: restaurantservices) {
-    console.log(restaurantservices.getAllRestaurants());
+    restaurantservices.getAllRestaurants().subscribe({
+      next:(rest)=>{
+        console.log(rest);
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -47,7 +51,7 @@ customOptions: OwlOptions = {
         if (res && res.data) {
           // تحويل المطاعم لكروت
           this.restaurants = res.data.map((r: any, index: number) => ({
-            id: index + 1,
+            id: r._id,
             name: r.name,
             img: `imgs/img${(index % 12) + 1}.jpg`,
             //i want to say if the index is 12 then make the index -index i mean return it into 0 again

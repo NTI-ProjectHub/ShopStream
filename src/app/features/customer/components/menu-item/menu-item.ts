@@ -1,71 +1,68 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+interface SubMenu {
+  _id: string;
+  name: string;
+  description: string;
+  image: string;
+  category: string;
+  isAvailable: boolean;
+  menuId: string;
+}
+
+interface Section {
+  id: string;
+  name: string;
+  items: SubMenu[];
+}
 
 @Component({
   selector: 'app-menu-item',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './menu-item.html',
-  styleUrl: './menu-item.css'
+  styleUrls: ['./menu-item.css']
 })
 export class MenuItem {
+  @Input() name: string = '';
+  @Input() description: string = '';
+  @Input() image: string = '';
+  @Input() category: string = '';
+  @Input() isAvailable: boolean = true;
+  @Input() subMenus: SubMenu[] = []; // Input to receive subMenus from parent
+
   activeSection: string = '';
 
-  sections = [
-    {
-      id: 'nouveautes',
-      name: 'Nouveautés 🔥',
-      items: [
-        { title: 'Master Aveyronnais', price: '€17.90', desc: 'Vous aimez l\'aligot ? Découvrez le Master Aveyronnais...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Master Alsacien', price: '€15.90', desc: 'Un burger façon flammekueche ? Découvrez...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Master Sudiste', price: '€15.90', desc: 'Ca sent bon le sud ! Découvrez...', img: 'restaurant-details/nouv.webp' }
-      ]
-    },
-    {
-      id: 'bonsplans',
-      name: 'Bons plans à partager 👏',
-      items: [
-        { title: 'Baby Burgers x3', price: '€12.90', desc: 'Découvrez les Baby Burgers : vos burgers préférés...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Baby Burgers x9', price: '€32.90', desc: 'Découvrez les Baby Burgers : vos burgers préférés...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x3', price: '€15.10', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x9', price: '€38.80', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x9', price: '€38.80', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' }
-      ]
-    },
-    {
-      id: 'menusPoulet',
-      name: 'Menus Poulet 🍗',
-      items: [
-        { title: 'Baby Burgers x3', price: '€12.90', desc: 'Découvrez les Baby Burgers : vos burgers préférés...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Baby Burgers x9', price: '€32.90', desc: 'Découvrez les Baby Burgers : vos burgers préférés...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x3', price: '€15.10', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x9', price: '€38.80', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x9', price: '€38.80', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Baby Burgers x3', price: '€12.90', desc: 'Découvrez les Baby Burgers : vos burgers préférés...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Baby Burgers x9', price: '€32.90', desc: 'Découvrez les Baby Burgers : vos burgers préférés...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x3', price: '€15.10', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x9', price: '€38.80', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x9', price: '€38.80', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' }
-      ]
-    },
-    {
-      id: 'menusBoeuf',
-      name: 'Menus Boeuf 🥩',
-      items: [
-        { title: 'Baby Burgers x3', price: '€12.90', desc: 'Découvrez les Baby Burgers : vos burgers préférés...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Baby Burgers x9', price: '€32.90', desc: 'Découvrez les Baby Burgers : vos burgers préférés...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x3', price: '€15.10', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x9', price: '€38.80', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x9', price: '€38.80', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Baby Burgers x3', price: '€12.90', desc: 'Découvrez les Baby Burgers : vos burgers préférés...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Baby Burgers x9', price: '€32.90', desc: 'Découvrez les Baby Burgers : vos burgers préférés...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x3', price: '€15.10', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x9', price: '€38.80', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' },
-        { title: 'Menu Baby Burgers x9', price: '€38.80', desc: 'Découvrez les Baby Burgers en menu...', img: 'restaurant-details/nouv.webp' }
-      ]
+  // Group subMenus by category
+  get sections(): Section[] {
+    if (!this.subMenus || this.subMenus.length === 0) {
+      return [];
     }
-  ];
+
+    // Create a map of categories to subMenus
+    const categoryMap = new Map<string, SubMenu[]>();
+    this.subMenus.forEach(subMenu => {
+      const category = subMenu.category || 'Other';
+      if (!categoryMap.has(category)) {
+        categoryMap.set(category, []);
+      }
+      categoryMap.get(category)!.push(subMenu);
+    });
+
+    // Convert to sections array
+    return Array.from(categoryMap.entries()).map(([category, items], index) => ({
+      id: `section-${index}-${category.toLowerCase().replace(/\s+/g, '-')}`,
+      name: category,
+      items
+    }));
+  }
 
   scrollTo(id: string) {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   @HostListener('window:scroll', [])
@@ -94,6 +91,6 @@ export class MenuItem {
   }
 
   shareOrder() {
-    alert("Sharing order...");
+    alert('Sharing order...');
   }
 }
