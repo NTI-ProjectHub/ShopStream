@@ -1,49 +1,55 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { restaurantservices } from '../../../core/Services/restaurant/restaurant';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-restaurant-card',
   imports: [RouterModule],
   templateUrl: './restaurant-card.html',
-  styleUrl: './restaurant-card.css'
+  styleUrls: ['./restaurant-card.css']
 })
-export class RestaurantCard {
-  deliveries = [
-    {
-      id: 1,
-      name: 'Burger King',
-      img: 'speedy-deliveries/burger-king.webp',
-      fee: '2.49 € Delivery Fee',
-      rating: 4.0,
-      reviews: '3,000+',
-      time: '15 min',
-    },
-    {
-      id: 2,
-      name: 'Subway',
-      img: 'speedy-deliveries/subway.webp',
-      fee: '2.49 € Delivery Fee',
-      rating: 4.3,
-      reviews: '700+',
-      time: '13 min',
-    },
-    {
-      id: 3,
-      name: 'French Barclette',
-      img: 'speedy-deliveries/french-barclette.webp',
-      fee: '2.99 € Delivery Fee',
-      rating: 4.4,
-      reviews: '3,000+',
-      time: '18 min',
-    },
-    {
-      id: 4,
-      name: 'Buffalo Grill',
-      img: 'speedy-deliveries/buffalo-grill.webp',
-      fee: '1.49 € Delivery Fee',
-      rating: 4.3,
-      reviews: '2,000+',
-      time: '17 min',
-    },
-  ];
+export class RestaurantCard implements OnInit {
+  restaurants: any[] = [];
+  topRestaurants: any[] = [];
+  foodTypes: string[] = [];
+
+  constructor(private restaurantservices: restaurantservices) {}
+
+  ngOnInit(): void {
+    this.restaurantservices.getAllRestaurants().pipe(
+      map(res => {
+        if (res && res.data) {
+          // تحويل المطاعم لكروت
+          this.restaurants = res.data.map((r: any, index: number) => ({
+            id: index + 1,
+            name: r.name,
+            img: r.coverImage,
+            fee: '2.49 € Delivery Fee',
+            rating: r.rating,
+            reviews: r.completedOrders + '+',
+            time: '15 min',
+            type: r.type ? r.type[0] : 'Food'
+          }));
+
+          // استخراج الـ Food Types بدون تكرار
+          this.foodTypes = Array.from(
+            new Set(res.data.map((r: any) => r.type ? r.type[0] : 'Food'))
+          );
+
+          // ترتيب المطاعم حسب rating وأيضًا completedOrders
+          this.topRestaurants = [...this.restaurants].sort((a, b) => {
+            if (b.rating === a.rating) {
+              return parseInt(b.reviews) - parseInt(a.reviews);
+            }
+            return b.rating - a.rating;
+          }).slice(0, 8); // أول 8 بس
+        }
+      })
+    ).subscribe({
+      error: (err: any) => {
+        console.error('Error loading restaurants:', err);
+      }
+    });
+  }
 }
