@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { restaurantservices } from './../../../../core/Services/restaurant/restaurant';
 import { MenuItem } from '../../components/menu-item/menu-item';
 
@@ -37,6 +38,7 @@ interface SubMenu {
   category: string;
   isAvailable: boolean;
   menuId: string;
+  price?: number; // Optional price for future API integration
 }
 
 interface RestaurantResponse {
@@ -52,7 +54,7 @@ interface RestaurantResponse {
 @Component({
   selector: 'app-restaurant-details',
   standalone: true,
-  imports: [MenuItem],
+  imports: [CommonModule, MenuItem], // Added CommonModule
   templateUrl: './restaurant-details.html',
   styleUrls: ['./restaurant-details.css']
 })
@@ -61,12 +63,13 @@ export class RestaurantDetails implements OnInit {
   restaurant: Restaurant | null = null;
   menu: Menu | null = null;
   subMenus: SubMenu[] = [];
+  error: string | null = null;
   buttons = ['Delivery', 'Pickup', 'Group order'];
 
   // Dummy reviews (since API doesn't provide reviews)
   reviews = [
     { rating: 5, text: 'Très bien 👍', author: 'Max...', date: '16/03/25' },
-    { rating: 5, text: 'rapide', author: 'car...', date: '13/02/25' },
+    { rating: 5, text: 'rapide', author: 'car...', date: '13/02/25' }
   ];
 
   constructor(
@@ -81,18 +84,24 @@ export class RestaurantDetails implements OnInit {
         next: (res: RestaurantResponse) => {
           if (res.success && res.data) {
             this.restaurant = res.data.restaurant;
-            
             this.menu = res.data.menu;
-            this.subMenus = res.data.subMenus;
-            console.log('✅ Restaurant Data:', res);
+            this.subMenus = res.data.subMenus || [];
+            console.log('✅ Restaurant:', this.restaurant);
+            console.log('✅ Menu:', this.menu);
+            console.log('✅ SubMenus:', this.subMenus);
           } else {
-            console.error('❌ No restaurant data found');
+            this.error = 'No restaurant data found';
+            console.error('❌ No restaurant data found:', res.message);
           }
         },
         error: (error: any) => {
+          this.error = 'Failed to load restaurant details';
           console.error('❌ Error fetching restaurant:', error);
         }
       });
+    } else {
+      this.error = 'Invalid restaurant ID';
+      console.error('❌ Invalid restaurant ID');
     }
   }
 
@@ -116,5 +125,10 @@ export class RestaurantDetails implements OnInit {
     return this.restaurant && this.restaurant.completedOrders > 0
       ? `${this.restaurant.completedOrders}+`
       : 'No reviews yet';
+  }
+
+  selectOption(option: string) {
+    console.log(`Selected: ${option}`);
+    // Implement logic for Delivery, Pickup, Group order
   }
 }

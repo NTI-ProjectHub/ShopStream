@@ -1,5 +1,6 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { restaurantservices } from './../../../../core/Services/restaurant/restaurant';
 
 interface SubMenu {
   _id: string;
@@ -9,6 +10,7 @@ interface SubMenu {
   category: string;
   isAvailable: boolean;
   menuId: string;
+  price?: number; // Optional price field for future API integration
 }
 
 interface Section {
@@ -24,38 +26,43 @@ interface Section {
   templateUrl: './menu-item.html',
   styleUrls: ['./menu-item.css']
 })
-export class MenuItem {
-  @Input() name: string = '';
-  @Input() description: string = '';
-  @Input() image: string = '';
-  @Input() category: string = '';
-  @Input() isAvailable: boolean = true;
-  @Input() subMenus: SubMenu[] = []; // Input to receive subMenus from parent
-
+export class MenuItem implements OnInit {
+  @Input() subMenus: SubMenu[] = [];
+  @Input() restaurantId: string = '';
+  sections: Section[] = [];
   activeSection: string = '';
+  showOrder: boolean = false;
+  selectedItems: SubMenu[] = []; // Track selected items for the order modal
+  error: string | null = null;
 
-  // Group subMenus by category
-  get sections(): Section[] {
+  constructor(private restaurantServices: restaurantservices) {}
+
+  ngOnInit() {
     if (!this.subMenus || this.subMenus.length === 0) {
-      return [];
+      this.error = 'No menu items available';
+      return;
     }
 
-    // Create a map of categories to subMenus
+    // Group subMenus by category
     const categoryMap = new Map<string, SubMenu[]>();
     this.subMenus.forEach(subMenu => {
       const category = subMenu.category || 'Other';
       if (!categoryMap.has(category)) {
         categoryMap.set(category, []);
       }
-      categoryMap.get(category)!.push(subMenu);
+      categoryMap.get(category)!.push({
+        ...subMenu,
+        price: subMenu.price || 0 // Placeholder price
+      });
     });
 
-    // Convert to sections array
-    return Array.from(categoryMap.entries()).map(([category, items], index) => ({
+    this.sections = Array.from(categoryMap.entries()).map(([category, items], index) => ({
       id: `section-${index}-${category.toLowerCase().replace(/\s+/g, '-')}`,
       name: category,
       items
     }));
+
+    console.log('✅ MenuItem Sections:', this.sections);
   }
 
   scrollTo(id: string) {
@@ -80,10 +87,12 @@ export class MenuItem {
     this.activeSection = currentSection;
   }
 
-  showOrder = false;
-
-  openOrder() {
-    this.showOrder = true;
+  openOrder(item: SubMenu) {
+    if (item.isAvailable) {
+      this.selectedItems.push(item);
+      this.showOrder = true;
+      console.log('✅ Added to order:', item);
+    }
   }
 
   closeOrder() {
@@ -92,5 +101,13 @@ export class MenuItem {
 
   shareOrder() {
     alert('Sharing order...');
+    // Implement sharing logic (e.g., generate shareable link)
+  }
+
+  removeItem(index: number) {
+    this.selectedItems.splice(index, 1);
+    if (this.selectedItems.length === 0) {
+      this.showOrder = false;
+    }
   }
 }
