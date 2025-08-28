@@ -5,7 +5,6 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LoginServices } from '../../../core/Services/Auth/login/login';
 import { GlobalInfo } from '../../../core/Services/global/global-info';
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -56,9 +55,15 @@ export class Login {
 
           alert('Login Success!');
           console.log('🌍 Global User Info:', this.globalInfo.getUserInfo());
+          if(this.authService.isAdmin()){
+            console.log('iam admin :)');
+            this.router.navigate(['adminhome']);
+          }
+          else{
+            // 👇 Navigate to the main layout or dashboard
+            this.router.navigate(['/']);
 
-          // 👇 Navigate to the main layout or dashboard
-          this.router.navigate(['/']);
+          }
         },
         error: (error) => {
           console.error('❌ Login failed:', error);

@@ -37,11 +37,10 @@ export class Register {
 
           // 👇 هنا بنخزن بيانات اليوزر في GlobalInfo
           this.globalInfo.setUserInfo({
-            userId: res.userId,
             userName,
-            name,
             email,
-            token: res.token
+            name,
+            role :'user'
           });
           console.log('🌍 Global User Info:', this.globalInfo.getUserInfo());
           alert('SignUp Success!');
