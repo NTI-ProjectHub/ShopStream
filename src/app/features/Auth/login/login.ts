@@ -43,6 +43,7 @@ export class Login {
             this.globalInfo.setUserInfo({
               userName: username,
               email: email,
+              role:response.userinfo.data.role
             });
           }
 

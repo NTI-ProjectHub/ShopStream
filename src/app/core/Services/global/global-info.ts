@@ -11,10 +11,10 @@ export class GlobalInfo {
   private getInitialUser() {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
       const data = localStorage.getItem('userInfo');
-      return data ? JSON.parse(data) : { userName: '', name: 'none', email: '' };
+      return data ? JSON.parse(data) : { userName: '', name: 'none', email: '',role:'' };
     }
     // لو بنعمل render من السيرفر
-    return { userName: '', name: 'none', email: '' };
+    return { userName: '', name: 'none', email: '',role:'' };
   }
 
   setUserInfo(user: any) {
@@ -32,6 +32,6 @@ export class GlobalInfo {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
       localStorage.removeItem('userInfo');
     }
-    this.userInfoSubject.next({ userName: '', name: 'none', email: '' });
+    this.userInfoSubject.next({ userName: '', name: 'none', email: '',role:'' });
   }
 }
