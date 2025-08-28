@@ -1,0 +1,10 @@
+   <div class="card" *ngFor="let card of RestaurantCardData">
+        <div class="offer">{{card.offer}}</div>
+        <div class="heart">♡</div>
+        <img src="./imgi_128_08829600257ed8168dd856cafb7446c8.jpg" alt="KFC">
+        <div class="card-body">
+            <p class="title">{{card.name}}</p>
+            <p class="details">{{card.deliveryFee.amount}} {{card.deliveryFee.currency}} Delivery Fee</p>
+            <p class="rating">⭐ {{card.rating.value}} • {{card.deliveryTimeMinutes}}</p>
+        </div>
+    </div>
