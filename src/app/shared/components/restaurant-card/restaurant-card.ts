@@ -24,11 +24,11 @@ export class RestaurantCard implements OnInit {
           this.restaurants = res.data.map((r: any, index: number) => ({
             id: index + 1,
             name: r.name,
-            img: r.coverImage,
+            img: `imgs/img${(index % 12) + 1}.jpg`,
+            //i want to say if the index is 12 then make the index -index i mean return it into 0 again
             fee: '2.49 € Delivery Fee',
-            rating: r.rating,
-            reviews: r.completedOrders + '+',
-            time: '15 min',
+            rating: (Math.random() * 4 + 1).toFixed(1),
+            reviews: Math.floor(Math.random() * 100) + '+',
             type: r.type ? r.type[0] : 'Food'
           }));
 
