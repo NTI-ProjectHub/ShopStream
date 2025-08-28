@@ -21,7 +21,7 @@ export class Login {
     private loginService: LoginServices,
     private globalInfo: GlobalInfo,
     private router: Router,
-    private authService : AuthService
+    private authService: AuthService
   ) {
     this.form = this.fb.group({
       username: ['', Validators.required],
@@ -38,16 +38,18 @@ export class Login {
         next: (response: any) => {
           console.log('✅ Login successful:', response);
           this.authService.isAuthenticated = () => true;
-          // 👇 نخزن بيانات اليوزر في GlobalInfo
-          if (response.userinfo) {
+
+          // 👇 Store user data in GlobalInfo using the correct path
+          if (response.data && response.data.user) {
             this.globalInfo.setUserInfo({
-              userName: username,
-              email: email,
-              role:response.userinfo.data.role
+              userName: response.data.user.username, // Use username from response
+              name: response.data.user.name,
+              email: response.data.user.email,
+              role: response.data.user.role // Correct path to access role
             });
           }
 
-          // 👇 نخزن الـ token (لو الـ API بيرجعه)
+          // 👇 Store the token (if returned by the API)
           if (response.token) {
             localStorage.setItem('auth_token', response.token);
           }
@@ -55,8 +57,7 @@ export class Login {
           alert('Login Success!');
           console.log('🌍 Global User Info:', this.globalInfo.getUserInfo());
 
-          // 👇 بعد اللوجين رجعه للهوم أو الداشبورد
-          // iwant here when i login successfuly go to the main-layout.ts to the route
+          // 👇 Navigate to the main layout or dashboard
           this.router.navigate(['/']);
         },
         error: (error) => {
