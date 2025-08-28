@@ -1,27 +1,51 @@
 <div class="w-full px-6">
+    <div>Some tags before</div>
+  <owl-carousel-o [options]="customOptions">
+    <div carouselSlide>Slide 1</div>  
+    <div carouselSlide>Slide 2</div>  
+    <div carouselSlide>Slide 3</div>  
+    <div carouselSlide>Slide 1</div>  
+    <div carouselSlide>Slide 2</div>  
+    <div carouselSlide>Slide 3</div> 
+  </owl-carousel-o>
+  <div>Some tags after</div>
+    <div>Some tags before</div>
+  <owl-carousel-o [options]="customOptions">
+    <ng-template carouselSlide>Slide 1</ng-template>  
+    <ng-template carouselSlide>Slide 2</ng-template>  
+    <ng-template carouselSlide>Slide 3</ng-template>  
+        <ng-template carouselSlide>Slide 1</ng-template>  
+    <ng-template carouselSlide>Slide 2</ng-template>  
+    <ng-template carouselSlide>Slide 3</ng-template>  
+  </owl-carousel-o>
+  <div>Some tags after</div>
+<h2 class="text-xl font-semibold mb-4">Top Rated Restaurants</h2>
 
-  <!-- عرض أعلى مطاعم -->
-  <h2 class="text-xl font-semibold mb-4">Top Rated Restaurants</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    @for (item of topRestaurants; track item.id) {
-      <a
-        [routerLink]="['/details', item.id]"
-        class="block rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white cursor-pointer"
-      >
-        <img [src]="item.img" [alt]="item.name" class="w-full h-36 object-cover" />
-        <div class="p-3">
-          <h3 class="font-medium text-lg">{{ item.name }}</h3>
-          <p class="text-sm text-gray-500">{{ item.fee }}</p>
-          <div class="flex items-center text-sm text-gray-600 mt-1">
-            <span class="font-semibold">{{ item.rating }}★</span>
-            <span class="ml-1">({{ item.reviews }})</span>
-            <span class="mx-2">·</span>
-            <span>{{ item.time }}</span>
+<!-- كاروسيل -->
+<div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+  
+      @for (item of topRestaurants; track item.id) {
+  <owl-carousel-o [options]="customOptions">
+        <ng-template carouselSlide>
+          
+        <a 
+          [routerLink]="['/details', item.id]"
+          class="min-w-[250px] max-w-[250px] flex-shrink-0 rounded-xl overflow-hidden shadow hover:shadow-lg transition bg-white cursor-pointer"
+        >
+          <img [src]="item.img" [alt]="item.name" class="w-full h-36 object-cover" />
+          <div class="p-3">
+            <h3 class="font-medium text-lg">{{ item.name }}</h3>
+            <p class="text-sm text-gray-500">{{ item.fee }}</p>
+            <div class="flex items-center text-sm text-gray-600 mt-1">
+              <span class="font-semibold">{{ item.rating }}★</span>
+              <span class="ml-1">({{ item.reviews }})</span>
+            </div>
           </div>
-        </div>
-      </a>
-    }
-  </div>
+        </a>
+        </ng-template>
+      </owl-carousel-o>
+      }
+</div>
 
     <h2 class="text-xl font-semibold mb-4">All Restaurants</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -38,7 +62,6 @@
             <span class="font-semibold">{{ item.rating }}★</span>
             <span class="ml-1">({{ item.reviews }})</span>
             <span class="mx-2">·</span>
-            <span>{{ item.time }}</span>
           </div>
         </div>
       </a>

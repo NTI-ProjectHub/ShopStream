@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { restaurantservices } from '../../../core/Services/restaurant/restaurant';
 import { map } from 'rxjs';
-
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 @Component({
   selector: 'app-restaurant-card',
-  imports: [RouterModule],
+  imports: [RouterModule,CarouselModule],
   templateUrl: './restaurant-card.html',
   styleUrls: ['./restaurant-card.css']
 })
@@ -13,8 +13,33 @@ export class RestaurantCard implements OnInit {
   restaurants: any[] = [];
   topRestaurants: any[] = [];
   foodTypes: string[] = [];
-
-  constructor(private restaurantservices: restaurantservices) {}
+customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    dots: false,
+    navSpeed: 700,
+    navText: ['next', 'prev'],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 2
+      },
+      740: {
+        items: 3
+      },
+      940: {
+        items: 4
+      }
+    },
+    nav: true
+  }
+  constructor(private restaurantservices: restaurantservices) {
+    console.log(restaurantservices.getAllRestaurants());
+  }
 
   ngOnInit(): void {
     this.restaurantservices.getAllRestaurants().pipe(
