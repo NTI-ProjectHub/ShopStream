@@ -1,0 +1,42 @@
+<nav class="bg-indigo-700 text-white p-4 shadow-md">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- Logo -->
+    <div class="text-2xl font-bold">Admin Panel</div>
+
+    <!-- Navigation Links -->
+    <div class="space-x-4">
+      <a
+        routerLink="/admin/home"
+        routerLinkActive="bg-indigo-800 rounded px-3 py-2"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="hover:bg-indigo-600 rounded px-3 py-2 transition duration-300">
+        Home
+      </a>
+      <a
+        routerLink="/admin/restaurents-dashboard"
+        routerLinkActive="bg-indigo-800 rounded px-3 py-2"
+        class="hover:bg-indigo-600 rounded px-3 py-2 transition duration-300">
+        Restaurants
+      </a>
+      <a
+        routerLink="/admin/orders-dashboard"
+        routerLinkActive="bg-indigo-800 rounded px-3 py-2"
+        class="hover:bg-indigo-600 rounded px-3 py-2 transition duration-300">
+        Orders
+      </a>
+      <a
+        routerLink="/admin/users"
+        routerLinkActive="bg-indigo-800 rounded px-3 py-2"
+        class="hover:bg-indigo-600 rounded px-3 py-2 transition duration-300">
+        Users
+      </a>
+    </div>
+
+    <!-- Logout Button -->
+    <button
+      (click)="logout()"
+      class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300">
+      Logout
+    </button>
+  </div>
+</nav>

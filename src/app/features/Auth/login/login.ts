@@ -57,7 +57,7 @@ export class Login {
           console.log('🌍 Global User Info:', this.globalInfo.getUserInfo());
           if(this.authService.isAdmin()){
             console.log('iam admin :)');
-            this.router.navigate(['adminhome']);
+            this.router.navigate(['admin/home']);
           }
           else{
             // 👇 Navigate to the main layout or dashboard

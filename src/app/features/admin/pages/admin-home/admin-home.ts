@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { AdminNav } from '../../components/admin-nav/admin-nav';
 
 @Component({
   selector: 'app-admin-home',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, AdminNav],
   templateUrl: './admin-home.html',
-  styleUrl: './admin-home.css'
+  styleUrls: ['./admin-home.css'],
 })
-export class AdminHome {
-
-}
+export class AdminHome {}
